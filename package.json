@@ -1,0 +1,15 @@
+{
+  "name": "invoice_generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "puppeteer": "^10.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node main"
+  },
+  "author": "",
+  "license": "ISC"
+}
