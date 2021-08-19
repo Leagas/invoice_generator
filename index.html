@@ -1,13 +1,102 @@
 <html>
-  <head>
-    <script>
-      function init() {
-        let nameEle = document.getElementById("name");
-        nameEle.innerHTML = window.name;
-      }
-    </script>
-  </head>
-  <body onLoad="init()">
-    <p id="name"></p>
-  </body>
+
+<head>
+  <style>
+    html {
+      background: white;
+      height: 100%;
+      width: 21cm;
+      -webkit-print-color-adjust: exact;
+      margin: 0 auto;
+    }
+
+    body {
+      margin: 0;
+      flex: 1;
+    }
+
+    .main {
+      background: #c4c4c4;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      display: flex;
+      flex: 1.5;
+      background: red;
+    }
+
+    .header .left {
+      background: white;
+      margin: 10px 5px 10px 10px;
+      flex: 1;
+    }
+
+    .header .right {
+      background: white;
+      margin: 10px 10px 10px 5px;
+      flex: 1;
+    }
+
+    .body {
+      flex: 1;
+      background: blue;
+    }
+
+    .footer {
+      display: flex;
+      flex: 1;
+      background: green;
+    }
+
+    .footer .left {
+      background: white;
+      margin: 10px 5px 10px 10px;
+      flex: 1;
+    }
+
+    .footer .right {
+      background: white;
+      margin: 10px 10px 10px 5px;
+      flex: 1;
+    }
+  </style>
+  <script>
+    function init() {
+      let nameEle = document.getElementById("name");
+      nameEle.innerHTML = window.name;
+    }
+  </script>
+</head>
+
+<body onLoad="init()">
+  <div class="main">
+    <div class="header">
+      <div class="left">
+        <div class="logo">logo</div>
+        <div class="address">address</div>
+        <div class="bill-to">bill to</div>
+      </div>
+      <div class="right">
+        <div class="invoice-name">invoice #</div>
+        <div class="date">
+          <div class="current">01/01/2021</div>
+          <div class="due">R50000</div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+    <div class="body">
+      <table class="line-items">table</table>
+    </div>
+    <div class="footer">
+      <div class="left">account</div>
+      <div class="right">total 50000</div>
+    </div>
+  </div>
+</body>
+
 </html>

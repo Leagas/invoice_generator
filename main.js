@@ -10,7 +10,7 @@ async function main(data) {
   
     await page.addScriptTag({ content: `window.name = "${data[i].name}"` });
     await page.goto(require.resolve(path.join(__dirname, "./index.html")));
-    await page.pdf({ path: `output/${i}.pdf` })
+    await page.pdf({ path: `output/${i}.pdf`, format: "a4" })
   
     await browser.close();
   }
