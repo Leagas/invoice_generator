@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "name": "INVOICE 1",
+    "from": ["1 Main Road", "2 Main Park", "City 1105", "012 816 7789"],
+    "billTo": ["Company (PTY) LTD", "PO BOX 7693", "CITY", "GAUTENG", "SOUTH AFRICA", "0000"],
+    "lineItems": [
+      {
+        "name": "Consulting",
+        "quantity": "1",
+        "rate": "ZAR 1,000,000.00",
+        "amount": "ZAR 1,000,000.00"
+      }
+    ],
+    "total": "ZAR 1,000,000.00",
+    "date": "Jan 25, 2021",
+    "notes": ["Bank Details:", "Name", "Account number : 0000000000", "Branch Code : 000000"]
+  }
+]
