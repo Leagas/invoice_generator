@@ -1,0 +1,282 @@
+<html>
+
+<head>
+  <style>
+    html {
+      background: white;
+      height: 100%;
+      width: 21cm;
+      -webkit-print-color-adjust: exact;
+      margin: 0 auto;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    }
+
+    .main {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      display: flex;
+      flex: 1;
+      background: white;
+    }
+
+    .header .left {
+      background: white;
+      margin: 10px 5px 10px 10px;
+      flex: 1;
+    }
+
+    .header .right {
+      background: white;
+      margin: 10px 10px 10px 5px;
+      flex: 1;
+    }
+
+    .body {
+      flex: 1;
+      margin: 10px;
+      background: white;
+    }
+
+    .line-items {
+      width: 100%;
+      font-size: 14px;
+    }
+
+    #table-header {
+      display: flex;
+      background: #232e38;
+      color: white;
+      border-radius: 4px;
+      padding: 5px;
+    }
+
+    #table-row {
+      display: flex;
+      padding: 5px;
+    }
+
+    #table-col-1 {
+      flex: 6;
+    }
+
+    #table-col-2 {
+      flex: 2;
+    }
+
+    #table-col-3 {
+      flex: 2;
+    }
+
+    #table-col-4 {
+      flex: 2;
+      text-align: right;
+    }
+
+    th {
+      text-align: left;
+      background: #232E38;
+      color: white;
+      border-radius: 4px 0 0 4px;
+      padding: 5px;
+    }
+
+    .footer {
+      display: flex;
+      flex: 1;
+    }
+
+    .footer .left {
+      background: white;
+      margin: 10px 5px 10px 10px;
+      flex: 1;
+    }
+
+    .footer .right {
+      background: white;
+      margin: 10px 10px 10px 5px;
+      flex: 1;
+    }
+
+    .flex-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .flex-row {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .logo {
+      flex: 1;
+    }
+
+    .address {
+      flex: 2;
+      margin: 10px;
+    }
+
+    .bill-to {
+      flex: 3;
+      margin: 10px;
+    }
+
+    .invoice-name {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .date {
+      flex: 3;
+    }
+
+    .logo-img {
+      width: 75%;
+    }
+
+    .input {
+      border: none;
+    }
+
+    .inv-number {
+      width: 100%;
+      text-align: right;
+      font-size: 36px;
+      border: none;
+    }
+
+    .date-1 {
+      text-align: right;
+      width: 25%;
+      padding-right: 10px;
+    }
+
+    .bal-1 {
+      text-align: right;
+      width: 25%;
+      background: #eaeaea;
+      border-radius: 8px;
+      padding-right: 10px;
+    }
+
+    .current {
+      justify-content: flex-end;
+    }
+
+    .due {
+      justify-content: flex-end;
+      background: #eaeaea;
+      border-radius: 8px;
+    }
+
+    #notes {
+      padding: 5px;
+      border: 1px solid #c3c3c3;
+    }
+  </style>
+  <script>
+    function init() {
+      console.log("populate...", name)
+      let nameEle = document.getElementById("name");
+      nameEle.value = name;
+
+      let tableEle = document.getElementById("line-items");
+      lineItems.forEach(item => {
+        tableEle.innerHTML += `<div id="table-row">
+          <div id="table-col-1">${item.name}</div>
+          <div id="table-col-2">${item.quantity}</div>
+          <div id="table-col-3">${item.rate}</div>
+          <div id="table-col-4">${item.amount}</div>
+        </div>`
+      })
+
+      let fromEle = document.getElementById("input-from");
+      fromEle.innerHTML = from.join("<br />")
+
+      let billEle = document.getElementById("input-bill-to");
+      billEle.innerHTML = billTo.join("<br />")
+
+      let notesEle = document.getElementById("notes");
+      notesEle.innerHTML = notes.join("<br />")
+
+      let balanceEle = document.getElementById("balance");
+      balanceEle.value = total
+
+      let dateEle = document.getElementById("date");
+      dateEle.value = date
+
+      let totalEle = document.getElementById("total");
+      totalEle.value = total
+    }
+  </script>
+</head>
+
+<body onLoad="init()">
+  <div class="main">
+    <div class="header">
+      <div class="left flex-col">
+        <div class="logo">
+          <img class="logo-img" src="./ll.png" />
+        </div>
+        <div class="address flex-col">
+          <div id="input-from" class="input add-1"></div>
+        </div>
+        <div class="bill-to flex-col">
+          <p style="color: #c3c3c3">Bill To:</p>
+          <div id="input-bill-to" class="input bill-1"></div>
+        </div>
+      </div>
+      <div class="right flex-col">
+        <div class="invoice-name">
+          <input id="name" class="inv-number" type="text" value="INVOICE #12" />
+        </div>
+        <div class="address flex-col">
+
+        </div>
+        <div class="date flex-col">
+          <div class="current flex-row">
+            <p style="font-weight: bold;">Date:</p>
+            <input id="date" class="input date-1" type="text" value="1/1/2021" />
+          </div>
+          <div class="due flex-row">
+            <p style="font-weight: bold;">Balance Due:</p>
+            <input id="balance" class="input bal-1" type="text" value="R50 000.00" />
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+    <div class="body">
+      <div id="line-items" class="line-items">
+        <div id="table-header">
+          <div id="table-col-1">Name</div>
+          <div id="table-col-2">Quantity</div>
+          <div id="table-col-3">Rate</div>
+          <div id="table-col-4">Amount</div>
+        </div>
+        </table>
+      </div>
+      <div class="footer">
+        <div class="left flex-col">
+          <p style="color: #c3c3c3;">Notes</p>
+          <div id="notes">
+          </div>
+        </div>
+        <div class="right flex-col">
+          <div style="display: flex;flex-direction: row;justify-content: flex-end;">
+            <p style="width: 25%; color: #c3c3c3">Total</p>
+            <input id="total" style="width: 25%; text-align: right;" class="input bill-6" type="text" value="0" />
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>

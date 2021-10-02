@@ -1,282 +1,187 @@
+<!DOCTYPE html>
 <html>
 
 <head>
+  <meta charset="utf-8" />
+
   <style>
-    html {
-      background: white;
-      height: 100%;
-      width: 21cm;
-      -webkit-print-color-adjust: exact;
-      margin: 0 auto;
-      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    .invoice-box {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      border: 1px solid #eee;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+      font-size: 16px;
+      line-height: 24px;
+      font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+      color: #555;
     }
 
-    .main {
-      height: 100%;
+    .invoice-box table {
       width: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .header {
-      display: flex;
-      flex: 1;
-      background: white;
-    }
-
-    .header .left {
-      background: white;
-      margin: 10px 5px 10px 10px;
-      flex: 1;
-    }
-
-    .header .right {
-      background: white;
-      margin: 10px 10px 10px 5px;
-      flex: 1;
-    }
-
-    .body {
-      flex: 1;
-      margin: 10px;
-      background: white;
-    }
-
-    .line-items {
-      width: 100%;
-      font-size: 14px;
-    }
-
-    #table-header {
-      display: flex;
-      background: #232e38;
-      color: white;
-      border-radius: 4px;
-      padding: 5px;
-    }
-
-    #table-row {
-      display: flex;
-      padding: 5px;
-    }
-
-    #table-col-1 {
-      flex: 6;
-    }
-
-    #table-col-2 {
-      flex: 2;
-    }
-
-    #table-col-3 {
-      flex: 2;
-    }
-
-    #table-col-4 {
-      flex: 2;
-      text-align: right;
-    }
-
-    th {
+      line-height: inherit;
       text-align: left;
-      background: #232E38;
-      color: white;
-      border-radius: 4px 0 0 4px;
+    }
+
+    .invoice-box table td {
       padding: 5px;
+      vertical-align: top;
     }
 
-    .footer {
-      display: flex;
-      flex: 1;
-    }
-
-    .footer .left {
-      background: white;
-      margin: 10px 5px 10px 10px;
-      flex: 1;
-    }
-
-    .footer .right {
-      background: white;
-      margin: 10px 10px 10px 5px;
-      flex: 1;
-    }
-
-    .flex-col {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .flex-row {
-      display: flex;
-      flex-direction: row;
-    }
-
-    .logo {
-      flex: 1;
-    }
-
-    .address {
-      flex: 2;
-      margin: 10px;
-    }
-
-    .bill-to {
-      flex: 3;
-      margin: 10px;
-    }
-
-    .invoice-name {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
-    .date {
-      flex: 3;
-    }
-
-    .logo-img {
-      width: 75%;
-    }
-
-    .input {
-      border: none;
-    }
-
-    .inv-number {
-      width: 100%;
+    .invoice-box table tr td:nth-child(2) {
       text-align: right;
-      font-size: 36px;
-      border: none;
     }
 
-    .date-1 {
+    .invoice-box table tr.top table td {
+      padding-bottom: 20px;
+    }
+
+    .invoice-box table tr.top table td.title {
+      font-size: 45px;
+      line-height: 45px;
+      color: #333;
+    }
+
+    .invoice-box table tr.information table td {
+      padding-bottom: 40px;
+    }
+
+    .invoice-box table tr.heading td {
+      background: #eee;
+      border-bottom: 1px solid #ddd;
+      font-weight: bold;
+    }
+
+    .invoice-box table tr.details td {
+      padding-bottom: 20px;
+    }
+
+    .invoice-box table tr.item td {
+      border-bottom: 1px solid #eee;
+    }
+
+    .invoice-box table tr.item.last td {
+      border-bottom: none;
+    }
+
+    .invoice-box table tr.total td:nth-child(2) {
+      border-top: 2px solid #eee;
+      font-weight: bold;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .invoice-box table tr.top table td {
+        width: 100%;
+        display: block;
+        text-align: center;
+      }
+
+      .invoice-box table tr.information table td {
+        width: 100%;
+        display: block;
+        text-align: center;
+      }
+    }
+
+    /** RTL **/
+    .invoice-box.rtl {
+      direction: rtl;
+      font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    }
+
+    .invoice-box.rtl table {
       text-align: right;
-      width: 25%;
-      padding-right: 10px;
     }
 
-    .bal-1 {
-      text-align: right;
-      width: 25%;
-      background: #eaeaea;
-      border-radius: 8px;
-      padding-right: 10px;
-    }
-
-    .current {
-      justify-content: flex-end;
-    }
-
-    .due {
-      justify-content: flex-end;
-      background: #eaeaea;
-      border-radius: 8px;
-    }
-
-    #notes {
-      padding: 5px;
-      border: 1px solid #c3c3c3;
+    .invoice-box.rtl table tr td:nth-child(2) {
+      text-align: left;
     }
   </style>
   <script>
     function init() {
-      console.log("populate...", name)
-      let nameEle = document.getElementById("name");
-      nameEle.value = name;
-
-      let tableEle = document.getElementById("line-items");
-      lineItems.forEach(item => {
-        tableEle.innerHTML += `<div id="table-row">
-          <div id="table-col-1">${item.name}</div>
-          <div id="table-col-2">${item.quantity}</div>
-          <div id="table-col-3">${item.rate}</div>
-          <div id="table-col-4">${item.amount}</div>
-        </div>`
-      })
-
-      let fromEle = document.getElementById("input-from");
-      fromEle.innerHTML = from.join("<br />")
-
-      let billEle = document.getElementById("input-bill-to");
-      billEle.innerHTML = billTo.join("<br />")
-
-      let notesEle = document.getElementById("notes");
-      notesEle.innerHTML = notes.join("<br />")
-
-      let balanceEle = document.getElementById("balance");
-      balanceEle.value = total
+      let numberEle = document.getElementById("number");
+      numberEle.innerHTML = number;
 
       let dateEle = document.getElementById("date");
-      dateEle.value = date
+      dateEle.innerHTML = date;
+
+      let billEle = document.getElementById("bill-to");
+      billEle.innerHTML = billTo.join("<br />")
+
+      let linesEle = document.getElementById("line-items");
+      const linesHTML = lines.reduce((acc, curr, index) => {
+        acc += `<tr class="item ${index === lines.length ? "last" : ""}">
+          <td>${curr.name}</td>
+  
+          <td>${curr.amount}</td>
+        </tr>`
+
+        return acc
+      }, "")
+
+      linesEle.outerHTML = linesHTML;
 
       let totalEle = document.getElementById("total");
-      totalEle.value = total
+      totalEle.innerHTML = total
     }
   </script>
 </head>
 
 <body>
-  <div class="main">
-    <div class="header">
-      <div class="left flex-col">
-        <div class="logo">
-          <img class="logo-img" src="./ll.png" />
-        </div>
-        <div class="address flex-col">
-          <div id="input-from" class="input add-1"></div>
-        </div>
-        <div class="bill-to flex-col">
-          <p style="color: #c3c3c3">Bill To:</p>
-          <div id="input-bill-to" class="input bill-1"></div>
-        </div>
-      </div>
-      <div class="right flex-col">
-        <div class="invoice-name">
-          <input id="name" class="inv-number" type="text" value="INVOICE #12" />
-        </div>
-        <div class="address flex-col">
+  <div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+      <tr class="top">
+        <td colspan="2">
+          <table>
+            <tr>
+              <td class="title">
+                <img src="./ll.png" style="width: 100%; max-width: 300px" />
+              </td>
 
-        </div>
-        <div class="date flex-col">
-          <div class="current flex-row">
-            <p style="font-weight: bold;">Date:</p>
-            <input id="date" class="input date-1" type="text" value="1/1/2021" />
-          </div>
-          <div class="due flex-row">
-            <p style="font-weight: bold;">Balance Due:</p>
-            <input id="balance" class="input bal-1" type="text" value="R50 000.00" />
-          </div>
-        </div>
-        <div></div>
-      </div>
-    </div>
-    <div class="body">
-      <div id="line-items" class="line-items">
-        <div id="table-header">
-          <div id="table-col-1">Name</div>
-          <div id="table-col-2">Quantity</div>
-          <div id="table-col-3">Rate</div>
-          <div id="table-col-4">Amount</div>
-        </div>
-        </table>
-      </div>
-      <div class="footer">
-        <div class="left flex-col">
-          <p style="color: #c3c3c3;">Notes</p>
-          <div id="notes">
-          </div>
-        </div>
-        <div class="right flex-col">
-          <div style="display: flex;flex-direction: row;justify-content: flex-end;">
-            <p style="width: 25%; color: #c3c3c3">Total</p>
-            <input id="total" style="width: 25%; text-align: right;" class="input bill-6" type="text" value="0" />
-          </div>
-        </div>
-      </div>
-    </div>
+              <td>
+                Invoice #<span id="number"></span><br />
+                Created: <span id="date">January 1, 2015</span><br />
+                <!-- Due: <span id="due">January 1, 2015</span> -->
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr class="information">
+        <td colspan="2">
+          <table>
+            <tr>
+              <td>
+                75 Kingsthorpe Park,<br />
+                65 Kenilworth Road,<br />
+                Cape Town, WC 7708
+              </td>
+
+              <td id="bill-to">
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr class="heading">
+        <td>Item</td>
+
+        <td>Price</td>
+      </tr>
+
+      <tr id="line-items">
+
+      </tr>
+
+      <tr class="total">
+        <td></td>
+
+        <td id="total"></td>
+      </tr>
+    </table>
+  </div>
 </body>
 
 </html>
